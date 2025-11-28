@@ -1,4 +1,4 @@
-Documentação para a inicialização do projeto sem erros:
+## Documentação para a inicialização do projeto sem erros:
 
 1- copie e cole ```git clone https://github.com/matheussantosspbr/comhub_frontend.git```
 
