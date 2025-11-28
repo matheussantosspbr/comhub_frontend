@@ -6,6 +6,8 @@
 
 3- ```npm i```
 
-4- abra a url ```http://localhost:3000/```
+4- ```npm run dev```
+
+5- abra a url ```http://localhost:3000/```
 
 E pronto, o projeto ja está funcionando da forma certa
