@@ -1,4 +1,5 @@
 import { redirect } from "next/navigation";
+import GetLongUrlToRedirect from "@/infrastructure/GetLongUrlToRedirect";
 
 export default async function RedirectPage({
   params,
@@ -6,11 +7,10 @@ export default async function RedirectPage({
   params: Promise<{ slug: string }>
 }) {
   const slug = (await params).slug;
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/${slug}`);
-  if(res.status && res.status === 404) {
+  const res = await GetLongUrlToRedirect(slug);
+  if(res.data.status && res.data.status === 404) {
     redirect(`/`);
   }else{
-      const data = await res.json();
-      redirect(`${data}`);
+    redirect(`${res.data.url.longUrl}`);
   }
 }

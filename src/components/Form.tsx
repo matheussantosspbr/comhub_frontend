@@ -1,44 +1,37 @@
 "use client";
 
-import axios from "axios";
 import { useState } from "react";
+import CreateLink from "@/infrastructure/CreateLink";
 
 export default function Form() {
       const [link, setLink] = useState('');
       const [btnDisabled, setBtnDisabled] = useState(false);
       const [btnStatus, setBtnStatus] = useState<'SUCCESS' | 'ERROR' | null>(null);
 
-      const API_ENDPOINT = process.env.NEXT_PUBLIC_API_ENDPOINT;
-
       const encurtar = async () => {
         const urlRegex = /^https:\/\/([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[^\s]*)?$/;
         if (!urlRegex.test(link)) {
           return alert("URL inválida. Deve começar com https://");
         }
-
           
         setBtnDisabled(true);
         setTimeout(async () => {
-            await axios.post(`${API_ENDPOINT}/shorten`, {
-                url: link
-                })
-                .then((response) => {
-                console.log(response.data);
+            const res = await CreateLink(link);
+            if(res.status && res.status === 201){
                 setBtnStatus('SUCCESS');
                 setTimeout(() => {
                     setBtnDisabled(false);
                     setBtnStatus(null);
                     location.reload();
                 }, 2000);
-                })
-                .catch((error) => {
-                    setBtnStatus('ERROR');
-                    setTimeout(() => {
+            }else{
+                setBtnStatus('ERROR');
+                console.log(res);
+                setTimeout(() => {
                     setBtnDisabled(false);
                     setBtnStatus(null);
                 }, 2000);
-                console.error(error);
-                });
+            }
         }, 1000);
         
       }
