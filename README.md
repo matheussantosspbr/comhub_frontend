@@ -11,3 +11,5 @@
 5- abra a url ```http://localhost:3000/```
 
 E pronto, o projeto ja está funcionando da forma certa
+
+Continue [aqui](https://github.com/matheussantosspbr/comhub_backend/tree/master)
